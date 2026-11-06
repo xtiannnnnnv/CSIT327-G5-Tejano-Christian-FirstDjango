@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}CampusConnect - Sign Up{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-4">Create your account</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                            {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+                    {% endif %}
+                    <button class="btn btn-primary" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
